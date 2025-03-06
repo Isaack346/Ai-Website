@@ -1,40 +1,121 @@
+/* ✅ Header Styling */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 15px 50px;
     background-color: white;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #7D4CDB; /* Slightly thicker border for visibility */
 }
 
+/* ✅ Navbar Styling */
 .navbar {
     display: flex;
-    gap: 15px;
+    gap: 30px; /* Increased spacing for better readability */
 }
 
 .navbar a {
     text-decoration: none;
     color: black;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 18px; /* Slightly larger text */
+    padding: 10px 15px;
+    transition: color 0.3s ease-in-out;
 }
 
-.logo {
+.navbar a:hover {
+    color: #7D4CDB; /* Adds hover effect */
+}
+
+/* ✅ Logo Styling */
+.logo-container {
     display: flex;
     align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: green;
+    gap: 15px;
 }
 
 .logo-img {
-    height: 40px; /* Adjust logo size */
-    margin-left: 10px;
+    height: 120px; /* Increased logo size */
+    width: auto;
 }
 
+.logo-text {
+    font-size: 26px; /* Slightly bigger text */
+    font-weight: bold;
+    color: #2C3E50; /* Darker color for visibility */
+    display: flex;
+    align-items: center;
+}
+
+/* ✅ Search Bar Styling */
 .search-bar {
-    width: 300px;
-    padding: 10px;
-    border-radius: 5px;
+    width: 350px; /* Slightly wider for better usability */
+    padding: 12px;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* ✅ Center and Enlarge Login & Sign Up */
+
+.auth-section {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align higher on the page */
+    height: 85vh; /* Maintain near-full height */
+    gap: 50px; /* Increase spacing between login and signup */
+    flex-wrap: wrap; /* Ensures responsiveness on smaller screens */
+    margin-top: 20px; /* Move it just a bit more down */
+}
+
+/* ✅ Styling for the login and sign-up forms */
+.auth-box {
+    background: white;
+    padding: 40px; /* Increase padding for larger size */
+    border-radius: 12px; /* Slightly rounded corners */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+    width: 400px; /* Make the boxes wider */
+    text-align: center;
+}
+
+/* ✅ Enlarge input fields */
+.auth-box input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px; /* Bigger text for readability */
+}
+
+/* ✅ Enlarge buttons */
+.auth-box .auth-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px; /* Bigger button text */
+    border: none;
+    border-radius: 8px;
+    background-color: #7D4CDB;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.auth-box .auth-button:hover {
+    background-color: #6438B6; /* Darker hover effect */
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .auth-section {
+        flex-direction: column; /* Stack forms vertically */
+        height: auto;
+        padding: 50px 20px; /* Add some spacing */
+        margin-top: 30px; /* Tiny bit more down on smaller screens */
+    }
+
+    .auth-box {
+        width: 90%; /* Make it more fluid on smaller screens */
+        max-width: 400px; /* Keep it from getting too large */
+    }
 }
