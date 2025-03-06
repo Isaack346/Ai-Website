@@ -6,5 +6,8 @@
 		{
 			"path": "../Frontend"
 		}
-	]
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Ai-Website"
+	}
 }
