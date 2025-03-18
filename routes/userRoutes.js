@@ -1,36 +1,43 @@
 const express = require('express');
-const { createUser, findUserByEmail } = require('./modules/user'); // Importing functions from modules/user.js
-const bcrypt = require('bcrypt');
-
 const router = express.Router();
+const User = require('../models/User');  // Correct path to User model
 
-// POST /signup - User Sign Up
-router.post('/signup', async (req, res) => {
+// POST route for sign up
+router.post('/signup', (req, res) => {
+    const { email, password } = req.body;
+    
+    const newUser = new User({ email, password });
+    newUser.save()
+        .then(() => {
+            res.json({ success: true, message: 'Account created' });
+        })
+        .catch(err => {
+            res.json({ success: false, message: 'Sign up failed', error: err });
+        });
+});
+
+// POST route for login
+router.post('/login', (req, res) => {
     const { email, password } = req.body;
 
-    // Check if email and password are provided
-    if (!email || !password) {
-        return res.status(400).json({ success: false, message: 'Please provide both email and password.' });
-    }
+    User.findOne({ email })
+        .then(async (user) => {
+            if (user) {
+                // Compare entered password with hashed password
+                const isMatch = await user.comparePassword(password);
 
-    try {
-        // Check if the user already exists
-        const { success, message } = await findUserByEmail(email);
-        if (success) {
-            return res.status(400).json({ success: false, message: 'User already exists.' });
-        }
-
-        // Create new user
-        const { success: createSuccess, message: createMessage } = await createUser(email, password);
-        if (createSuccess) {
-            return res.status(201).json({ success: true, message: 'Account created successfully' });
-        } else {
-            return res.status(500).json({ success: false, message: createMessage });
-        }
-    } catch (error) {
-        console.error('Error during sign-up:', error);
-        res.status(500).json({ success: false, message: 'Server error during sign-up' });
-    }
+                if (isMatch) {
+                    res.json({ success: true, message: 'Login successful' });
+                } else {
+                    res.json({ success: false, message: 'Invalid credentials' });
+                }
+            } else {
+                res.json({ success: false, message: 'Invalid credentials' });
+            }
+        })
+        .catch(err => {
+            res.json({ success: false, message: 'Login failed', error: err });
+        });
 });
 
 module.exports = router;

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css"> <!-- External CSS (if needed) -->
 </head>
 <body>
+    
     <!-- ✅ Header Bar -->
     <header class="header">
         <div class="logo-container">
@@ -14,9 +15,10 @@
         </div>
     
         <nav class="navbar">
-            <a href="#">Newsfeed</a>
-            <a href="#">Productivity AI Apps</a>
-            <a href="#">How to Get Started with AI</a>
+            <nav class="navbar">
+                <a href="newsfeed.html">Newsfeed</a>            
+                <a href="#" class= "active ">Productivity AI Apps></a>
+                <a href="#">How to Get Started with AI</a>
             <a href="#">Why You Should Get Started with AI</a>
         </nav>
     
@@ -144,8 +146,8 @@
 
     <!-- ✅ Hero Section -->
     <section class="hero-section">
-        <h1>AI's Here for Your Search Bar</h1>
-        <p>Not world domination.</p>
+        <h1>Your All In One Ai Tool</h1>
+        <p>click below to get start.</p>
         <button class="cta-button">Get Started</button>
     </section>
     <!-- ✅ Login and Sign Up Form Section -->
@@ -170,6 +172,7 @@
     </section>
     
     <script>
+        // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
     
@@ -177,7 +180,7 @@
             const password = document.getElementById('loginPassword').value;
     
             // Send login request to the server
-            fetch('/login', {
+            fetch('/api/login', {  // Updated URL for login route
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -193,6 +196,7 @@
             .catch(err => console.log(err));
         });
     
+        // Handle sign-up form submission
         document.getElementById('signUpForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
     
@@ -200,7 +204,7 @@
             const password = document.getElementById('signUpPassword').value;
     
             // Send signup request to the server
-            fetch('/signup', {
+            fetch('/api/signup', {  // Corrected URL for signup route
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -219,24 +223,25 @@
     </script>
     
 
-    <!-- ✅ Chatbot Button -->
-    <button class="chatbot-button" onclick="toggleChatbot()">💬</button>
+    <!-- Chatbot Floating Button -->
+<!-- Chatbot Floating Button -->
+<button class="chatbot-button" onclick="toggleChatbot()">💬</button>
 
-    <!-- ✅ Chatbot Floating Window -->
-    <div class="chat-container" id="chatbot">
-        <div class="chat-header">
-            <img src="Ai Influ.png" alt="Chatbot Logo" class="chat-logo">
-            <span class="chat-title">AI Assistant</span>
-            <button class="close-chat" onclick="toggleChatbot()">✖</button>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="bot-message">Hi! Welcome to AI Assistant. How can I help you today?</div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
-            <button onclick="sendMessage()">➤</button>
-        </div>
+<!-- Chatbot Container -->
+<div class="chat-container" id="chatbot">
+    <div class="chat-header">
+        <img src="Ai Influ.png" alt="Chatbot Logo" class="chat-logo">
+        <span class="chat-title">AI Assistant</span>
+        <button class="close-chat" onclick="toggleChatbot()">✖</button>
     </div>
+    <div class="chat-body" id="chatBody">
+        <div class="bot-message">Hi! Welcome to AI Assistant. How can I help you today?</div>
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">➤</button>
+    </div>
+</div>
 
     <!-- ✅ Monetate-Inspired Styling -->
     <style>
@@ -404,50 +409,45 @@
     <!-- ✅ Chatbot JavaScript -->
     <script>
         function toggleChatbot() {
-            let chatbot = document.getElementById("chatbot");
-            chatbot.style.display = chatbot.style.display === "none" ? "flex" : "none";
-        }
+    let chatbot = document.getElementById("chatbot");
+    if (chatbot.style.display === "none" || chatbot.style.display === "") {
+        chatbot.style.display = "flex"; // Show chatbot
+    } else {
+        chatbot.style.display = "none"; // Hide chatbot
+    }
+}
 
-        function sendMessage() {
-            let userInput = document.getElementById("userInput").value;
-            if (userInput.trim() === "") return;
+function sendMessage() {
+    let userInput = document.getElementById("userInput").value;
+    if (userInput.trim() === "") return;
 
-            let chatBody = document.getElementById("chatBody");
+    let chatBody = document.getElementById("chatBody");
 
-            // ✅ Create user message
-            let userMessage = document.createElement("div");
-            userMessage.classList.add("message", "user-message");
-            userMessage.textContent = userInput;
-            chatBody.appendChild(userMessage);
+    // ✅ Create user message
+    let userMessage = document.createElement("div");
+    userMessage.classList.add("message", "user-message");
+    userMessage.textContent = userInput;
+    chatBody.appendChild(userMessage);
 
-            // ✅ Clear input field
-            document.getElementById("userInput").value = "";
-            chatBody.scrollTop = chatBody.scrollHeight;
+    // ✅ Clear input field
+    document.getElementById("userInput").value = "";
+    chatBody.scrollTop = chatBody.scrollHeight;
 
-            // ✅ Show bot thinking message
-            let botMessage = document.createElement("div");
-            botMessage.classList.add("message", "bot-message");
-            botMessage.textContent = "Thinking...";
-            chatBody.appendChild(botMessage);
-            
-            // ✅ Fetch chatbot response
-            fetch(`http://127.0.0.1:5000/chatbot-response?query=${encodeURIComponent(userInput)}`)
-                .then(response => response.json())
-                .then(data => {
-                    botMessage.textContent = data.response || "I didn't understand that.";
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                })
-                .catch(error => {
-                    botMessage.textContent = "Error processing request.";
-                });
-        }
+    // ✅ Show bot thinking message
+    let botMessage = document.createElement("div");
+    botMessage.classList.add("message", "bot-message");
+    botMessage.textContent = "Thinking...";
+    chatBody.appendChild(botMessage);
+    
+    // ✅ Simulate response (Replace with real API call)
+    setTimeout(() => {
+        botMessage.textContent = "Hello! How can I assist you today?";
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }, 1000);
+}
 
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        }
-    </script>
-
-</body>
-</html>
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}

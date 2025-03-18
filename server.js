@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./models/User'); // Correct path to models/user
 const path = require('path');
+const userRoutes = require('./routes/userRoutes');  // Import the userRoutes file
 
 const app = express();
 
@@ -25,36 +26,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html')); // Serve index.html from the public folder
 });
 
-// POST route for sign up
-app.post('/signup', (req, res) => {
-    const { email, password } = req.body;
-    
-    const newUser = new User({ email, password });
-    newUser.save()
-        .then(() => {
-            res.json({ success: true, message: 'Account created' });
-        })
-        .catch(err => {
-            res.json({ success: false, message: 'Sign up failed', error: err });
-        });
-});
-
-// POST route for login
-app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-
-    User.findOne({ email, password })
-        .then(user => {
-            if (user) {
-                res.json({ success: true, message: 'Login successful' });
-            } else {
-                res.json({ success: false, message: 'Invalid credentials' });
-            }
-        })
-        .catch(err => {
-            res.json({ success: false, message: 'Login failed', error: err });
-        });
-});
+// Use the routes from userRoutes
+app.use('/api', userRoutes);  // Adding "/api" prefix for all the user routes
 
 // Start server
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));
