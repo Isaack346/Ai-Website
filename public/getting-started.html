@@ -6,17 +6,135 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- ✅ Header Bar -->
     <header class="header">
         <div class="logo-container">
-            <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo">
+            <a href="index.html">
+                <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo">
+            </a>
         </div>
+    
         <nav class="navbar">
-            <a href="index.html">Home</a>
-            <a href="newsfeed.html">Newsfeed</a>
-            <a href="productivity.html">Productivity AI Apps</a>
-            <a href="getting-started.html" class="active">How to Get Started with AI</a>
+            <a href="newsfeed.html">Newsfeed</a>            
+            <a href="productivity.html" class="active">Productivity AI Apps</a>
+            <a href="getting-started.html">How to Get Started with AI</a>
         </nav>
+    
+        <div class="nav-actions">
+            <button class="login-btn">Login</button>
+            <button class="signup-btn">Sign Up</button>
+        </div>
     </header>
+
+<!-- ✅ Header CSS -->
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f4f4f9;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        background: #fff;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .brand-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .navbar {
+        display: flex;
+        gap: 25px;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        padding: 8px 12px;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .navbar a:hover {
+        color: #7D4CDB;
+    }
+
+    .nav-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .login-btn, .signup-btn {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        transition: 0.3s ease-in-out;
+    }
+
+    .login-btn {
+        background: transparent;
+        border: 1px solid #7D4CDB;
+        color: #5d0ef0;
+    }
+
+    .login-btn:hover {
+        background: #7D4CDB;
+        color: white;
+    }
+
+    .signup-btn {
+        background: #7D4CDB;
+        color: white;
+    }
+
+    .signup-btn:hover {
+        background: #6438B6;
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .navbar {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .nav-actions {
+            margin-top: 10px;
+        }
+    }
+</style>
+    <!-- ✅ Header CSS End -->
 
     <main style="padding: 50px;">
         <h1>How to Get Started with AI</h1>
