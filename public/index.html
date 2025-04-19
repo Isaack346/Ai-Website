@@ -1,320 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My AI Chatbot</title>
-    <link rel="stylesheet" href="styles.css"> <!-- External CSS (if needed) -->
-</head>
-<body>
-    
-    <!-- ✅ Header Bar -->
-    <header class="header">
-        <div class="logo-container">
-            <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo">
-        </div>
-    
-        <nav class="navbar">
-            <a href="newsfeed.html">Newsfeed</a>            
-            <a href="productivity.html" class="active">Productivity AI Apps></a>
-            <a href="getting-started.html">How to Get Started with AI</a>
-            <a href="#">Why You Should Get Started with AI</a>
-        </nav>
-    
-        <div class="nav-actions">
-            <button class="login-btn">Login</button>
-            <button class="signup-btn">Sign Up</button>
-        </div>
-    </header>
-
-<!-- ✅ Header CSS -->
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My AI Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <style>
     body {
-        font-family: 'Poppins', sans-serif;
-        background: #f4f4f9;
+      font-family: 'Inter', sans-serif;
     }
 
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 50px;
-        background: #fff;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-    }
-
-    .logo {
-        height: 40px;
-        margin-right: 10px;
-    }
-
-    .brand-name {
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-    }
-
-    .navbar {
-        display: flex;
-        gap: 25px;
-    }
-
-    .navbar a {
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
-        color: #333;
-        padding: 8px 12px;
-        transition: color 0.3s ease-in-out;
-    }
-
-    .navbar a:hover {
-        color: #7D4CDB;
-    }
-
-    .nav-actions {
-        display: flex;
-        gap: 15px;
-    }
-
-    .login-btn, .signup-btn {
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border: none;
-        transition: 0.3s ease-in-out;
-    }
-
-    .login-btn {
-        background: transparent;
-        border: 1px solid #7D4CDB;
-        color: #5d0ef0;
-    }
-
-    .login-btn:hover {
-        background: #7D4CDB;
-        color: white;
-    }
-
-    .signup-btn {
-        background: #7D4CDB;
-        color: white;
-    }
-
-    .signup-btn:hover {
-        background: #6438B6;
-    }
-
-    @media (max-width: 768px) {
-        .header {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .navbar {
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .nav-actions {
-            margin-top: 10px;
-        }
-    }
-</style>
-
-<!-- ✅ Hero Section -->
-<section class="hero-section">
-    <h1>Your All In One Ai Tool</h1>
-    <p>click below to get start.</p>
-    <button class="cta-button">Get Started</button>
-</section>
-
-<!-- ✅ Login and Sign Up Form Section -->
-<section class="auth-section">
-    <div class="auth-box">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="email" placeholder="Email" id="loginEmail" required>
-            <input type="password" placeholder="Password" id="loginPassword" required>
-            <button type="submit" class="auth-button">Login</button>
-        </form>
-    </div>
-
-    <div class="auth-box">
-        <h2>Sign Up</h2>
-        <form id="signUpForm">
-            <input type="email" placeholder="Email" id="signUpEmail" required>
-            <input type="password" placeholder="Password" id="signUpPassword" required>
-            <button type="submit" class="auth-button">Sign Up</button>
-        </form>
-    </div>
-</section>
-
-<script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-
-        fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = '/home';
-            } else {
-                alert('Login failed!');
-            }
-        })
-        .catch(err => console.log(err));
-    });
-
-    document.getElementById('signUpForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('signUpEmail').value;
-        const password = document.getElementById('signUpPassword').value;
-
-        fetch('/api/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Account created!');
-                window.location.href = '/login';
-            } else {
-                alert('Sign up failed!');
-            }
-        })
-        .catch(err => console.log(err));
-    });
-</script>
-
-<!-- Chatbot Floating Button -->
-<button class="chatbot-button" onclick="toggleChatbot()">💬</button>
-
-<!-- Chatbot Container -->
-<div class="chat-container" id="chatbot">
-    <div class="chat-header">
-        <img src="Ai Influ.png" alt="Chatbot Logo" class="chat-logo">
-        <span class="chat-title">AI Assistant</span>
-        <button class="close-chat" onclick="toggleChatbot()">✖</button>
-    </div>
-    <div class="chat-body" id="chatBody">
-        <div class="bot-message">Hi! Welcome to AI Assistant. How can I help you today?</div>
-    </div>
-    <div class="chat-footer">
-        <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()">➤</button>
-    </div>
-</div>
-
-<style>
-    .hero-section {
-        background: linear-gradient(to bottom, #d51d5c, #f4f4f9);
-        padding: 80px 50px;
-        text-align: center;
-        color: white;
-        border-bottom-left-radius: 50% 10%;
-        border-bottom-right-radius: 50% 10%;
-    }
-
-    .hero-section h1 {
-        font-size: 48px;
-        font-weight: bold;
-    }
-
-    .hero-section p {
-        font-size: 18px;
-        margin-top: 10px;
-        font-style: italic;
-    }
-
-    .cta-button {
-        background: #ff9800;
-        color: white;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 25px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .cta-button:hover {
-        background: #e68900;
-    }
-
+    /* Chatbot Styles */
     .chatbot-button {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: #007bff;
-        color: white;
+        background: #ffffff;
+        color: black;
+        padding: 12px 18px;
         border: none;
-        padding: 15px;
-        border-radius: 50%;
-        font-size: 24px;
+        border-radius: 50px;
         cursor: pointer;
+        font-size: 16px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 50;
     }
 
     .chat-container {
         position: fixed;
-        bottom: 80px;
-        right: 20px;
-        width: 350px;
-        height: 450px;
-        background: white;
+        bottom: 90px;
+        right: 35px;
+        width: 420px;
+        height: 550px;
+        background: #1a1a1a;
         border-radius: 15px;
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
         display: none;
         flex-direction: column;
         overflow: hidden;
+        z-index: 50;
     }
 
     .chat-header {
-        background: #007bff;
+        background: #333333;
         color: white;
         padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        text-align: center;
         font-size: 18px;
         font-weight: bold;
-    }
-
-    .chat-logo {
-        width: 24px;
-        height: 24px;
-        margin-right: 10px;
-    }
-
-    .close-chat {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
     }
 
     .chat-body {
@@ -324,7 +59,33 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        background: #f9f9f9;
+        color: white;
+    }
+
+    .chat-footer {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #444;
+    }
+
+    .chat-footer input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #444;
+        border-radius: 20px;
+        background-color: #222;
+        color: white;
+        outline: none;
+    }
+
+    .chat-footer button {
+        background: white;
+        color: black;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 20px;
+        margin-left: 10px;
     }
 
     .message {
@@ -335,80 +96,117 @@
     }
 
     .user-message {
-        background: #007bff;
-        color: white;
+        background: #ffffff;
+        color: black;
         align-self: flex-end;
     }
 
     .bot-message {
-        background: #e5e5ea;
-        color: black;
+        background: #333;
+        color: white;
         align-self: flex-start;
     }
 
-    .chat-footer {
-        display: flex;
-        padding: 10px;
-        border-top: 1px solid #ddd;
-        background: white;
-    }
-
-    .chat-footer input {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 20px;
-        outline: none;
-    }
-
-    .chat-footer button {
-        background: #007bff;
-        color: white;
-        border: none;
+    .loading-bubble {
+        background: #666;
         padding: 10px 15px;
-        cursor: pointer;
         border-radius: 20px;
-        margin-left: 10px;
+        font-style: italic;
+        align-self: flex-start;
     }
-</style>
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen">
 
-<script>
+  <!-- Navbar -->
+  <header class="flex justify-between items-center px-10 py-6">
+    <div class="flex items-center gap-2 text-lg font-semibold">
+      <img src="Ai influ.png" alt="AI Logo" class="w-8 h-8 object-contain">
+      <span>AI Toolbox</span>
+    </div>
+    <nav class="space-x-8 text-sm uppercase tracking-wider">
+      <a href="newsfeed.html" class="hover:underline">Newsfeed</a>
+      <a href="productivity.html" class="hover:underline">Productivity AI</a>
+      <a href="getting-started.html" class="hover:underline">Getting Started</a>
+      <a href="#" class="hover:underline">Why AI</a>
+    </nav>
+    <div class="space-x-4">
+      <button class="px-4 py-1 border border-white rounded-full text-sm hover:bg-white hover:text-black transition">Login</button>
+      <button class="px-4 py-1 bg-white text-black rounded-full text-sm hover:bg-gray-200">Sign Up</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="text-center mt-28 mb-24 px-6">
+    <h1 class="text-5xl font-semibold leading-tight mb-6">Ai Influencers</h1>
+    <p class="text-lg text-gray-300 mb-10">Click below to begin the journey.</p>
+    <button onclick="toggleChatbot()" class="px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition font-medium">Get Started</button>
+  </section>
+
+  <!-- Login / Sign Up -->
+  <section class="flex justify-center flex-wrap gap-10 px-6 pb-20">
+    <!-- Login Box -->
+    <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
+      <h2 class="text-xl font-semibold mb-4">Login</h2>
+      <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
+      <input type="password" placeholder="Password" class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white"/>
+      <button class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">Login</button>
+    </div>
+
+    <!-- Sign Up Box -->
+    <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
+      <h2 class="text-xl font-semibold mb-4">Sign Up</h2>
+      <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
+      <input type="password" placeholder="Password" class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white"/>
+      <button class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">Sign Up</button>
+    </div>
+  </section>
+
+  <!-- Chatbot Button + Container -->
+  <div class="chat-container" id="chatbot">
+    <div class="chat-header">AI Assistant</div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-footer">
+      <input type="text" id="userInput" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
     function toggleChatbot() {
-        let chatbot = document.getElementById("chatbot");
+        const chatbot = document.getElementById("chatbot");
         chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
     }
 
     function sendMessage() {
-        let userInput = document.getElementById("userInput").value;
+        const userInput = document.getElementById("userInput").value;
         if (userInput.trim() === "") return;
 
-        let chatBody = document.getElementById("chatBody");
-
-        let userMessage = document.createElement("div");
-        userMessage.classList.add("message", "user-message");
-        userMessage.textContent = userInput;
-        chatBody.appendChild(userMessage);
-
+        const chatBody = document.getElementById("chatBody");
+        const userMessage = `<div class='message user-message'>${userInput}</div>`;
+        chatBody.innerHTML += userMessage;
         document.getElementById("userInput").value = "";
         chatBody.scrollTop = chatBody.scrollHeight;
 
-        let botMessage = document.createElement("div");
-        botMessage.classList.add("message", "bot-message");
-        botMessage.textContent = "Thinking...";
-        chatBody.appendChild(botMessage);
-        
-        setTimeout(() => {
-            botMessage.textContent = "Hello! How can I assist you today?";
+        const loadingBubble = `<div id='loading' class='loading-bubble'>Thinking...</div>`;
+        chatBody.innerHTML += loadingBubble;
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        fetch(`http://127.0.0.1:5000/chatbot-response?query=${encodeURIComponent(userInput)}`)
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById("loading").remove();
+            const botDiv = document.createElement("div");
+            botDiv.className = "message bot-message";
+            botDiv.innerHTML = data.response || "Sorry, I couldn't understand that.";
+            chatBody.appendChild(botDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
-        }, 1000);
+          })
+          .catch(error => {
+            document.getElementById("loading").remove();
+            chatBody.innerHTML += `<div class='message bot-message'>Error processing your request.</div>`;
+          });
     }
-
-    function handleKeyPress(event) {
-        if (event.key === "Enter") {
-            sendMessage();
-        }
-    }
-</script>
-
+  </script>
 </body>
 </html>
