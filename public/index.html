@@ -3,123 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My AI Tool</title>
+  <title>AI Toolbox</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="logo.png" />
   <style>
     body {
       font-family: 'Inter', sans-serif;
+      transition: opacity 0.8s ease;
     }
 
-    /* Chatbot Styles */
+    section {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+
     .chatbot-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #ffffff;
-        color: black;
-        padding: 12px 18px;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        font-size: 16px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        z-index: 50;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffffff;
+      color: black;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      z-index: 50;
     }
 
     .chat-container {
-        position: fixed;
-        bottom: 90px;
-        right: 35px;
-        width: 420px;
-        height: 550px;
-        background: #1a1a1a;
-        border-radius: 15px;
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
-        display: none;
-        flex-direction: column;
-        overflow: hidden;
-        z-index: 50;
+      position: fixed;
+      bottom: 90px;
+      right: 35px;
+      width: 420px;
+      height: 550px;
+      background: #1a1a1a;
+      border-radius: 15px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 50;
     }
 
     .chat-header {
-        background: #333333;
-        color: white;
-        padding: 15px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
+      background: #333333;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
     }
 
     .chat-body {
-        flex: 1;
-        padding: 15px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        color: white;
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: white;
     }
 
     .chat-footer {
-        display: flex;
-        padding: 10px;
-        border-top: 1px solid #444;
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #444;
     }
 
     .chat-footer input {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid #444;
-        border-radius: 20px;
-        background-color: #222;
-        color: white;
-        outline: none;
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 20px;
+      background-color: #222;
+      color: white;
+      outline: none;
     }
 
     .chat-footer button {
-        background: white;
-        color: black;
-        border: none;
-        padding: 10px 15px;
-        cursor: pointer;
-        border-radius: 20px;
-        margin-left: 10px;
+      background: white;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 20px;
+      margin-left: 10px;
     }
 
     .message {
-        padding: 10px 15px;
-        border-radius: 20px;
-        max-width: 80%;
-        word-wrap: break-word;
+      padding: 10px 15px;
+      border-radius: 20px;
+      max-width: 80%;
+      word-wrap: break-word;
     }
 
     .user-message {
-        background: #ffffff;
-        color: black;
-        align-self: flex-end;
+      background: #ffffff;
+      color: black;
+      align-self: flex-end;
     }
 
     .bot-message {
-        background: #333;
-        color: white;
-        align-self: flex-start;
+      background: #333;
+      color: white;
+      align-self: flex-start;
     }
 
     .loading-bubble {
-        background: #666;
-        padding: 10px 15px;
-        border-radius: 20px;
-        font-style: italic;
-        align-self: flex-start;
+      background: #666;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-style: italic;
+      align-self: flex-start;
+    }
+
+    .loader-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loader-logo {
+      width: 240px;
+      height: 240px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
-<body class="bg-black text-white min-h-screen">
+<body class="bg-black text-white min-h-screen opacity-0">
+ 
+  <!-- Loader Screen -->
+    <div class="loader-screen" id="loader">
+        <img src="https://raw.githubusercontent.com/Isaack346/Ai-Website/master/public/Ai%20Influ.png" alt="Loading Logo" class="loader-logo">
+        <p class="text-white mt-4 text-xl font-semibold animate-pulse">Launching AI Toolbox...</p>
+      </div>
+
 
   <!-- Navbar -->
-  <header class="flex justify-between items-center px-10 py-6">
+  <header class="fixed top-0 left-0 w-full bg-black z-50 flex justify-between items-center px-10 py-6 border-b border-gray-800">
     <div class="flex items-center gap-2 text-lg font-semibold">
       <img src="Ai influ.png" alt="AI Logo" class="w-8 h-8 object-contain">
       <span>AI Toolbox</span>
@@ -136,23 +175,20 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="text-center mt-28 mb-24 px-6">
-    <h1 class="text-5xl font-semibold leading-tight mb-6">Ai Influencers</h1>
-    <p class="text-lg text-gray-300 mb-10">Click below to begin the journey.</p>
-    <button onclick="toggleChatbot()" class="px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition font-medium">Get Started</button>
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-40" id="hero">
+    <h1 class="text-6xl font-bold mb-6 opacity-0">Ai Influencers</h1>
+    <p class="text-xl text-gray-300 mb-10 opacity-0">Click below to begin the journey.</p>
+    <button onclick="document.getElementById('auth').scrollIntoView({ behavior: 'smooth' })" class="px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition font-medium opacity-0">Get Started</button>
   </section>
 
-  <!-- Login / Sign Up -->
-  <section class="flex justify-center flex-wrap gap-10 px-6 pb-20">
-    <!-- Login Box -->
+  <!-- Login / Signup Section -->
+  <section class="flex flex-col md:flex-row justify-center items-start gap-16 px-6 opacity-0" id="auth">
     <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
       <h2 class="text-xl font-semibold mb-4">Login</h2>
       <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
       <input type="password" placeholder="Password" class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white"/>
       <button class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">Login</button>
     </div>
-
-    <!-- Sign Up Box -->
     <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
       <h2 class="text-xl font-semibold mb-4">Sign Up</h2>
       <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
@@ -161,7 +197,31 @@
     </div>
   </section>
 
-  <!-- Chatbot Button + Container -->
+  <!-- Feature Cards -->
+  <section class="px-6 pt-24 opacity-0" id="features">
+    <h2 class="text-4xl font-bold text-center mb-12">What You Can Do</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
+        <h3 class="text-xl font-semibold mb-2">AI Chatbot</h3>
+        <p class="text-gray-400">Interact with an intelligent assistant in real-time, built to answer and assist.</p>
+      </div>
+      <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
+        <h3 class="text-xl font-semibold mb-2">Text Summarizer</h3>
+        <p class="text-gray-400">Paste long articles and get concise summaries with a click.</p>
+      </div>
+      <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
+        <h3 class="text-xl font-semibold mb-2">Code Generator</h3>
+        <p class="text-gray-400">Write less, do more — generate code snippets in Python, JS, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-32 p-6 text-center text-gray-500 text-sm border-t border-gray-800">
+    © 2025 AI Toolbox. All rights reserved.
+  </footer>
+
+  <!-- Chatbot -->
   <div class="chat-container" id="chatbot">
     <div class="chat-header">AI Assistant</div>
     <div class="chat-body" id="chatBody"></div>
@@ -172,39 +232,54 @@
   </div>
 
   <script>
+    // Loader & GSAP
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      const body = document.querySelector('body');
+      loader.style.display = 'none';
+      body.style.opacity = '1';
+
+      gsap.to('.opacity-0', {
+        opacity: 1,
+        stagger: 0.3,
+        duration: 1,
+        ease: "power2.out"
+      });
+    });
+
     function toggleChatbot() {
-        const chatbot = document.getElementById("chatbot");
-        chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
+      const chatbot = document.getElementById("chatbot");
+      chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
     }
 
     function sendMessage() {
-        const userInput = document.getElementById("userInput").value;
-        if (userInput.trim() === "") return;
+      const userInput = document.getElementById("userInput").value;
+      if (userInput.trim() === "") return;
 
-        const chatBody = document.getElementById("chatBody");
-        const userMessage = `<div class='message user-message'>${userInput}</div>`;
-        chatBody.innerHTML += userMessage;
-        document.getElementById("userInput").value = "";
-        chatBody.scrollTop = chatBody.scrollHeight;
+      const chatBody = document.getElementById("chatBody");
+      const userMessage = `<div class='message user-message'>${userInput}</div>`;
+      chatBody.innerHTML += userMessage;
+      document.getElementById("userInput").value = "";
+      chatBody.scrollTop = chatBody.scrollHeight;
 
-        const loadingBubble = `<div id='loading' class='loading-bubble'>Thinking...</div>`;
-        chatBody.innerHTML += loadingBubble;
-        chatBody.scrollTop = chatBody.scrollHeight;
+      const loadingBubble = `<div id='loading' class='loading-bubble'>Thinking...</div>`;
+      chatBody.innerHTML += loadingBubble;
+      chatBody.scrollTop = chatBody.scrollHeight;
 
-        fetch(`http://127.0.0.1:5000/chatbot-response?query=${encodeURIComponent(userInput)}`)
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById("loading").remove();
-            const botDiv = document.createElement("div");
-            botDiv.className = "message bot-message";
-            botDiv.innerHTML = data.response || "Sorry, I couldn't understand that.";
-            chatBody.appendChild(botDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-          })
-          .catch(error => {
-            document.getElementById("loading").remove();
-            chatBody.innerHTML += `<div class='message bot-message'>Error processing your request.</div>`;
-          });
+      fetch(`http://127.0.0.1:5000/chatbot-response?query=${encodeURIComponent(userInput)}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("loading").remove();
+          const botDiv = document.createElement("div");
+          botDiv.className = "message bot-message";
+          botDiv.innerHTML = data.response || "Sorry, I couldn't understand that.";
+          chatBody.appendChild(botDiv);
+          chatBody.scrollTop = chatBody.scrollHeight;
+        })
+        .catch(error => {
+          document.getElementById("loading").remove();
+          chatBody.innerHTML += `<div class='message bot-message'>Error processing your request.</div>`;
+        });
     }
   </script>
 </body>
