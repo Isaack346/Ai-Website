@@ -1,77 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productivity AI Apps - AI Learning Hub</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Productivity AI Apps - AI Learning Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .logo-img {
+      height: 40px;
+    }
+  </style>
 </head>
-<body>
-    <header class="header">
-        <a href="index.html" class="logo">
-            <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo-img">
-        </a>
-        <nav class="navbar">
-            <a href="newsfeed.html">Newsfeed</a>
-            <a href="productivity.html">Productivity AI Apps</a>
-            <a href="#">How To Get Started With AI</a>
-            <a href="#">Why You Should Get Started With AI</a>
-        </nav>
+<body class="bg-black text-white">
 
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search AI topics, tutorials, etc.">
-        </div>
-    </header>
+  <!-- Header -->
+  <header class="flex flex-wrap items-center justify-between px-6 py-4 border-b border-gray-700">
+    <a href="index.html" class="flex items-center gap-2 text-xl font-semibold">
+      <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo-img">
+      <span>AI Learning Hub</span>
+    </a>
+    <nav class="flex flex-wrap gap-6 text-sm uppercase tracking-wider">
+      <a href="newsfeed.html" class="hover:text-blue-400">Newsfeed</a>
+      <a href="productivity.html" class="text-blue-500 font-semibold">Productivity AI Apps</a>
+      <a href="getting-started.html" class="hover:text-blue-400">How To Get Started</a>
+    </nav>
+    <div class="mt-4 sm:mt-0 w-full sm:w-auto">
+      <input type="text" class="w-full sm:w-64 px-4 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search AI topics, tutorials, etc.">
+    </div>
+  </header>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Boost Your Productivity with AI</h1>
-            <p>Listed below are commonly used AI bots many people use in their everyday life. You can find different websites that will help you with what you need.</p>
-        </div>
-    </section>
+  <!-- Hero -->
+  <section class="py-16 px-6 bg-gradient-to-r from-gray-900 to-black text-center">
+    <h1 class="text-4xl font-bold mb-4">Boost Your Productivity with AI</h1>
+    <p class="text-gray-400 max-w-2xl mx-auto">Listed below are commonly used AI bots that help people stay productive. Find the tools that fit your needs best.</p>
+  </section>
 
-    <main class="productivity">
-        <h1>Top Productivity AI Apps</h1>
-        
-        <h2>📝 Writing & Content Creation</h2>
-        <ul>
-            <li><strong><a href="https://www.youtube.com/watch?v=doTMUdBBq7A" target="_blank">Grammarly</a>:</strong> AI-powered grammar, spelling, and style checker.</li>
-            <li><strong><a href="https://www.youtube.com/watch?v=G1YaAfRzQuU" target="_blank">Jasper AI</a>:</strong> AI-generated content for blogs, ads, and social media.</li>
-            <li><strong><a href="https://www.youtube.com/watch?v=S92KX8-Hmlc" target="_blank">Notion AI</a>:</strong> Smart note-taking with AI-generated summaries & ideas.</li>
-        </ul>
-        
-        <h2>📅 Task & Project Management</h2>
-        <ul>
-            <li><strong><a href= "https://www.youtube.com/watch?v=Hda0HmvPGhM" target="_blank">ClickUp</a>:</strong> AI-powered task and project management.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=WpPGeTlDNuI" target="_blank">Trello AI</a>:</strong> Smart automation for task organization.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=no2l-Ob1Eq4" target="_blank">Motion</a>:</strong> AI schedules tasks based on your workload automatically.</li>
-        </ul>
-        
-        <h2>📨 Email & Communication</h2>
-        <ul>
-            <li><strong><a href= "https://www.youtube.com/watch?v=3-lIQBARGHc" target="_blank">Superhuman</a>:</strong> AI-driven email productivity with smart sorting.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=gVvySFoV8fY" target="_blank">Flowrite</a>:</strong> AI-powered email and message drafting.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=QtmqHE8ak00" target="_blank">Grain AI</a>:</strong> AI summarizes Zoom meetings and transcribes conversations.</li>
-        </ul>
-        
-        <h2>🧠 AI-Powered Research & Learning</h2>
-        <ul>
-            <li><strong><a href= "https://www.youtube.com/watch?v=XFmMT58zYVY" target="_blank">ChatGPT</a>:</strong> AI chatbot for brainstorming, research, and automation.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=rJJPS-EvNfk" target="_blank">Elicit AI</a>:</strong> AI-powered research assistant for academic papers.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=qpN-pjev-vM" target="_blank">Perplexity AI</a>:</strong> AI-driven search engine for fast and concise answers.</li>
-        </ul>
-        
-        <h2>🤖 Automation & Workflow Optimization</h2>
-        <ul>
-            <li><strong><a href= "https://www.youtube.com/watch?v=snlmPWStnqc" target="_blank">Zapier</a>:</strong> Automates workflows between different apps.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=Wy9dI7Nm180" target="_blank">Reclaim AI</a>:</strong> Auto-schedules meetings and tasks.</li>
-            <li><strong><a href= "https://www.youtube.com/watch?v=eWR4kJlhZzE" target="_blank">SaneBox</a></strong> AI filters important emails and declutters your inbox.</li>
-        </ul>
-    </main>
+  <!-- Main Content -->
+  <main class="px-6 py-10 max-w-5xl mx-auto space-y-10">
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">📝 Writing & Content Creation</h2>
+      <ul class="space-y-2 text-gray-300">
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=doTMUdBBq7A" target="_blank">Grammarly</a></strong>: AI grammar, spelling, and style checker.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=G1YaAfRzQuU" target="_blank">Jasper AI</a></strong>: Content creation for blogs, ads, and social media.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=S92KX8-Hmlc" target="_blank">Notion AI</a></strong>: Smart notes & idea generation.</li>
+      </ul>
+    </div>
 
-    <footer class="footer">
-        <p>&copy; 2025 AI Learning Hub. All rights reserved.</p>
-    </footer>
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">📅 Task & Project Management</h2>
+      <ul class="space-y-2 text-gray-300">
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=Hda0HmvPGhM" target="_blank">ClickUp</a></strong>: AI-powered task/project manager.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=WpPGeTlDNuI" target="_blank">Trello AI</a></strong>: Smart automation for tasks.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=no2l-Ob1Eq4" target="_blank">Motion</a></strong>: Auto-scheduling based on your workload.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">📨 Email & Communication</h2>
+      <ul class="space-y-2 text-gray-300">
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=3-lIQBARGHc" target="_blank">Superhuman</a></strong>: Lightning-fast email with AI features.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=gVvySFoV8fY" target="_blank">Flowrite</a></strong>: Writes emails/messages for you.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=QtmqHE8ak00" target="_blank">Grain AI</a></strong>: Transcribes and summarizes meetings.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">🧠 AI Research & Learning</h2>
+      <ul class="space-y-2 text-gray-300">
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=XFmMT58zYVY" target="_blank">ChatGPT</a></strong>: Brainstorm, research, automate.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=rJJPS-EvNfk" target="_blank">Elicit AI</a></strong>: Research assistant for papers.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=qpN-pjev-vM" target="_blank">Perplexity AI</a></strong>: Fast and factual AI search engine.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">🤖 Automation & Workflow</h2>
+      <ul class="space-y-2 text-gray-300">
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=snlmPWStnqc" target="_blank">Zapier</a></strong>: Connects and automates apps.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=Wy9dI7Nm180" target="_blank">Reclaim AI</a></strong>: Schedules meetings/tasks for you.</li>
+        <li><strong><a class="text-blue-400 hover:underline" href="https://www.youtube.com/watch?v=eWR4kJlhZzE" target="_blank">SaneBox</a></strong>: Filters and organizes your inbox.</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 border-t border-gray-700 text-gray-500">
+    &copy; 2025 AI Learning Hub. All rights reserved.
+  </footer>
+
 </body>
 </html>

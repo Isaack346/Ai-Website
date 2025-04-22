@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Getting Started with AI</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Getting Started with AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="Ai Influ.png" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .active {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body>
-    <header class="header">
-        <div class="logo-container">
-            <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo">
-        </div>
-        <nav class="navbar">
-            <a href="index.html">Home</a>
-            <a href="newsfeed.html">Newsfeed</a>
-            <a href="productivity.html">Productivity AI Apps</a>
-            <a href="getting-started.html" class="active">How to Get Started with AI</a>
-        </nav>
-    </header>
+<body class="bg-black text-white min-h-screen">
 
-    <main style="padding: 50px;">
-        <h1>How to Get Started with AI</h1>
-        <p>This guide will walk you through everything you need to begin your journey in Artificial Intelligence.</p>
-        <ul>
-            <li>✅ Learn the basics of Machine Learning & Deep Learning</li>
-            <li>✅ Take free online courses (Coursera, YouTube, etc.)</li>
-            <li>✅ Play with tools like ChatGPT, Google Teachable Machine</li>
-            <li>✅ Build beginner projects (like a chatbot or image classifier)</li>
-            <li>✅ Join AI communities on Reddit or GitHub</li>
-        </ul>
-    </main>
+  <!-- Header -->
+  <header class="flex justify-between items-center px-10 py-6">
+    <div class="flex items-center gap-2 text-lg font-semibold">
+      <img src="Ai Influ.png" alt="AI Influencers Logo" class="w-8 h-8 object-contain">
+      <span>AI Toolbox</span>
+    </div>
+    <nav class="space-x-8 text-sm uppercase tracking-wider">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="newsfeed.html" class="hover:underline">Newsfeed</a>
+      <a href="productivity.html" class="hover:underline">Productivity AI Apps</a>
+      <a href="getting-started.html" class="underline">How to Get Started with AI</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="px-10 pt-20 pb-24 max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold mb-6">How to Get Started with AI</h1>
+    <p class="text-lg text-gray-300 mb-8">
+      This guide will walk you through everything you need to begin your journey in Artificial Intelligence.
+    </p>
+    <ul class="space-y-4 text-base leading-relaxed">
+      <li>✅ Learn the basics of Machine Learning & Deep Learning</li>
+      <li>✅ Take free online courses (Coursera, YouTube, etc.)</li>
+      <li>✅ Play with tools like ChatGPT, Google Teachable Machine</li>
+      <li>✅ Build beginner projects (like a chatbot or image classifier)</li>
+      <li>✅ Join AI communities on Reddit or GitHub</li>
+    </ul>
+  </main>
+
 </body>
 </html>

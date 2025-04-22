@@ -4,44 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Newsfeed - AI Learning Hub</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
 </head>
-<body>
-    <header class="header">
-        <a href="index.html" class="logo">
-            <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo-img">
+<body class="bg-black text-white font-sans min-h-screen">
+
+    <!-- Header -->
+    <header class="flex flex-wrap items-center justify-between px-6 py-4 border-b border-gray-700">
+        <a href="index.html" class="flex items-center gap-2 text-xl font-semibold">
+            <img src="Ai Influ.png" alt="AI Influencers Logo" class="logo-img h-10 object-contain">
+            <span>AI Learning Hub</span>
         </a>
-        <nav class="navbar">
-            <a href="newsfeed.html">Newsfeed</a>
-            <a href="productivity.html">Productivity AI Apps</a>
-            <a href="#">How To Get Started With AI</a>
-            <a href="#">Why You Should Get Started With AI</a>
+        <nav class="flex flex-wrap gap-6 text-sm uppercase tracking-wider">
+            <a href="newsfeed.html" class="hover:underline">Newsfeed</a>
+            <a href="productivity.html" class="hover:underline">Productivity AI Apps</a>
+            <a href="getting-started.html" class="hover:underline">How To Get Started With AI</a>
         </nav>
-
-
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search AI topics, tutorials, etc.">
+        <div class="mt-4 sm:mt-0 w-full sm:w-auto">
+            <input type="text" class="w-full sm:w-64 px-4 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search AI topics, tutorials, etc.">
         </div>
     </header>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Welcome to AI Learning Hub</h1>
-            <p>Stay updated with the latest in AI</p>
-            <button class="cta-button" onclick="window.location.href='newsfeed.html'">Go to Newsfeed</button>
-        </div>
+    <!-- Hero Section -->
+    <section class="text-center py-16 bg-gradient-to-r from-gray-900 to-black">
+        <h1 class="text-4xl font-bold mb-4">Welcome to AI Learning Hub</h1>
+        <p class="text-gray-400 mb-6">Stay updated with the latest in AI</p>
+        <button onclick="window.location.href='newsfeed.html'" class="px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition">Go to Newsfeed</button>
     </section>
 
-    <main class="newsfeed">
-        <h1> Live AI News from X</h1>
-        <iframe src="https://x.com/chatgptapp?lang=en" width="700" height="500" style="border: none;"></iframe>
-        <button onclick="window.open('https://x.com/chatgptapp?lang=en', '_blank')">Open ChatGPT X Page</button>
+   <!-- Newsfeed Content -->
+<main class="px-6 py-12 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-semibold mb-6">🗞️ Live AI News from X</h2>
+    
+    <!-- Buttons to other AI-related X pages -->
+    <div class="space-y-4">
+        <button onclick="window.open('https://x.com/chatgptapp?lang=en', '_blank')" class="w-full px-5 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
+            ChatGPT X Page
+        </button>
+        <button onclick="window.open('https://x.com/TheAIArtNews', '_blank')" class="w-full px-5 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition">
+            AI News on X
+        </button>
+        <button onclick="window.open('https://x.com/EpochAIResearch', '_blank')" class="w-full px-5 py-3 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 transition">
+            AI Research on X
+        </button>
+    </div>
+</main>
 
-    </main>
 
-    <footer class="footer">
-        <p>&copy; 2025 AI Learning Hub. All rights reserved.</p>
+
+        <!-- 🎥 YouTube Playlist -->
+        <section class="youtube-section mt-12">
+            <h2 class="text-2xl font-semibold text-center text-gray-200 mb-4">🎥 AI Video Playlist</h2>
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/videoseries?list=PLf-bJpKeji6SJA98_WK824FSVHk2tC1QZ" frameborder="0" allowfullscreen></iframe>
+        </section>
+
+        <!-- 📊 AI Trends -->
+        <section class="ai-trends-section mt-12">
+            <h2 class="text-2xl font-semibold text-center text-gray-200 mb-4">📊 AI Trends & Latest Research</h2>
+            <p class="text-center text-gray-400 mb-4">Explore the latest AI research papers on <a href="https://arxiv.org/list/cs.AI/recent" target="_blank" class="text-blue-500 hover:underline">Arxiv AI Research</a>.</p>
+        </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-gray-700 text-gray-500">
+        &copy; 2025 AI Learning Hub. All rights reserved.
     </footer>
+
+    <!-- Daily Fact Script -->
+    <script>
+      fetch("https://api.quotable.io/random?tags=technology")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("ai-quote").textContent = `"${data.content}" — ${data.author}`;
+        })
+        .catch(() => {
+          document.getElementById("ai-quote").textContent = "Failed to load quote. Try again later.";
+        });
+    </script>
+
 </body>
 </html>
