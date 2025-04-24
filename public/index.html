@@ -9,6 +9,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="logo.png" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -24,7 +25,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #ffffff;
+      background: #3670cf;
       color: black;
       padding: 12px 18px;
       border: none;
@@ -51,13 +52,13 @@
     }
 
     .chat-header {
-      background: #333333;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-    }
+  background: #333;
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
     .chat-body {
       flex: 1;
@@ -94,6 +95,12 @@
       border-radius: 20px;
       margin-left: 10px;
     }
+    .chat-logo {
+  width: 32px;   /* or try 40px */
+  height: 32px;  /* keep it square */
+  object-fit: contain;
+}
+
 
     .message {
       padding: 10px 15px;
@@ -169,9 +176,26 @@
       <a href="getting-started.html" class="hover:underline">Getting Started</a>
     </nav>
     <div class="space-x-4">
-      <button class="px-4 py-1 border border-white rounded-full text-sm hover:bg-white hover:text-black transition">Login</button>
-      <button class="px-4 py-1 bg-white text-black rounded-full text-sm hover:bg-gray-200">Sign Up</button>
-    </div>
+        <!-- Google Sign-In -->
+        <div class="flex items-center gap-4">
+            <div id="g_id_onload"
+                 data-client_id="569710731999-lu1f5ml52jlaap4bgf2cu6cnd4bnu1bb.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-size="medium"
+                 data-theme="outline"
+                 data-text="sign_in_with"
+                 data-shape="pill"
+                 data-logo_alignment="left">
+            </div>
+        <!-- Keep Sign Up button (optional) -->
+        <button class="px-4 py-1 bg-white text-black rounded-full text-sm hover:bg-gray-200">Sign Up</button>
+      </div>
+      
   </header>
 
   <!-- Hero Section -->
@@ -185,17 +209,26 @@
   <section class="flex flex-col md:flex-row justify-center items-start gap-16 px-6 opacity-0" id="auth">
     <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
       <h2 class="text-xl font-semibold mb-4">Login</h2>
-      <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
-      <input type="password" placeholder="Password" class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white"/>
-      <button class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">Login</button>
+      <input id="loginEmail" type="email" placeholder="Email"
+             class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white" />
+      <input id="loginPassword" type="password" placeholder="Password"
+             class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white" />
+      <button onclick="handleLogin()" class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">
+        Login
+      </button>
     </div>
+  
     <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
-      <h2 class="text-xl font-semibold mb-4">Sign Up</h2>
-      <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
-      <input type="password" placeholder="Password" class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white"/>
-      <button class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">Sign Up</button>
-    </div>
-  </section>
+        <h2 class="text-xl font-semibold mb-4">Sign Up</h2>
+        <input id="signupEmail" type="email" placeholder="Email"
+               class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white" />
+        <input id="signupPassword" type="password" placeholder="Password"
+               class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white" />
+        <button onclick="handleSignup()" class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">
+          Sign Up
+        </button>
+      </div>
+    </section>
 
   <!-- Feature Cards -->
   <section class="px-6 pt-24 opacity-0" id="features">
@@ -222,14 +255,25 @@
   </footer>
 
   <!-- Chatbot -->
-  <div class="chat-container" id="chatbot">
-    <div class="chat-header">AI Assistant</div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-footer">
-      <input type="text" id="userInput" placeholder="Type a message...">
-      <button onclick="sendMessage()">Send</button>
-    </div>
+<!-- ✅ New Chatbot Button -->
+<button class="chatbot-button" onclick="toggleChatbot()">💬</button>
+
+<!-- ✅ New Chatbot Container -->
+<div class="chat-container" id="chatbot">
+  <div class="chat-header">
+    <img src="Ai Influ.png" alt="Chatbot Logo" class="chat-logo">
+    <span class="chat-title">AI Assistant</span>
+    <button class="close-chat" onclick="toggleChatbot()">✖</button>
   </div>
+  <div class="chat-body" id="chatBody">
+    <div class="bot-message">Hi! Welcome to AI Assistant. How can I help you today?</div>
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
 
   <script>
     // Loader & GSAP
@@ -248,39 +292,154 @@
     });
 
     function toggleChatbot() {
-      const chatbot = document.getElementById("chatbot");
-      chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
-    }
+    console.log("Toggle clicked!");
+    let chatbot = document.getElementById("chatbot");
+    chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
+  }
 
-    function sendMessage() {
-      const userInput = document.getElementById("userInput").value;
-      if (userInput.trim() === "") return;
+  function sendMessage() {
+    let userInput = document.getElementById("userInput").value;
+    if (userInput.trim() === "") return;
 
-      const chatBody = document.getElementById("chatBody");
-      const userMessage = `<div class='message user-message'>${userInput}</div>`;
-      chatBody.innerHTML += userMessage;
-      document.getElementById("userInput").value = "";
-      chatBody.scrollTop = chatBody.scrollHeight;
+    let chatBody = document.getElementById("chatBody");
 
-      const loadingBubble = `<div id='loading' class='loading-bubble'>Thinking...</div>`;
-      chatBody.innerHTML += loadingBubble;
-      chatBody.scrollTop = chatBody.scrollHeight;
+    let userMessage = document.createElement("div");
+    userMessage.classList.add("message", "user-message");
+    userMessage.textContent = userInput;
+    chatBody.appendChild(userMessage);
 
-      fetch(`http://127.0.0.1:5000/chatbot-response?query=${encodeURIComponent(userInput)}`)
-        .then(response => response.json())
+    document.getElementById("userInput").value = "";
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    let botMessage = document.createElement("div");
+    botMessage.classList.add("message", "bot-message");
+    botMessage.textContent = "Thinking...";
+    chatBody.appendChild(botMessage);
+
+    if (userInput.toLowerCase().includes("news")) {
+      fetch(`/search-news?query=${encodeURIComponent(userInput)}`)
+        .then(res => res.json())
         .then(data => {
-          document.getElementById("loading").remove();
-          const botDiv = document.createElement("div");
-          botDiv.className = "message bot-message";
-          botDiv.innerHTML = data.response || "Sorry, I couldn't understand that.";
-          chatBody.appendChild(botDiv);
+          botMessage.remove();
+          if (data.results && data.results.length > 0) {
+            data.results.forEach(article => {
+              const msg = document.createElement("div");
+              msg.className = "message bot-message";
+              msg.innerHTML = `
+                <strong>${article.title}</strong><br>
+                ${article.snippet}<br>
+                <a href="${article.link}" target="_blank">Read more</a>
+              `;
+              chatBody.appendChild(msg);
+            });
+          } else {
+            const errorMsg = document.createElement("div");
+            errorMsg.className = "message bot-message";
+            errorMsg.textContent = "No news found.";
+            chatBody.appendChild(errorMsg);
+          }
           chatBody.scrollTop = chatBody.scrollHeight;
         })
         .catch(error => {
-          document.getElementById("loading").remove();
-          chatBody.innerHTML += `<div class='message bot-message'>Error processing your request.</div>`;
+          botMessage.textContent = "Error fetching news.";
+          console.error(error);
         });
+      return;
     }
+
+    fetch(`/chatbot-response?query=${encodeURIComponent(userInput)}`)
+      .then(response => response.json())
+      .then(data => {
+        botMessage.textContent = data.response || "Sorry, I didn't get that.";
+        chatBody.scrollTop = chatBody.scrollHeight;
+      })
+      .catch(error => {
+        botMessage.textContent = "There was an error getting the response.";
+        console.error(error);
+      });
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  }
+</script>
+<script>
+    function handleCredentialResponse(response) {
+      fetch('/api/google-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: response.credential })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          // Save JWT locally
+          localStorage.setItem('jwt', data.token);
+          // Redirect user to a protected page
+          window.location.href = '/home';  // Change this if needed
+        } else {
+          alert('Google sign-in failed');
+        }
+      })
+      .catch(err => {
+        console.error('Google sign-in error:', err);
+        alert('Something went wrong');
+      });
+    }
+    function handleLogin() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        localStorage.setItem("jwt", data.token);
+        window.location.href = "/home"; // or your dashboard
+      } else {
+        alert("Login failed: " + data.message);
+      }
+    })
+    .catch(err => {
+      console.error("Login error:", err);
+      alert("Something went wrong during login");
+    });
+  }
+  function handleSignup() {
+    const email = document.getElementById("signupEmail").value;
+    const password = document.getElementById("signupPassword").value;
+
+    fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        localStorage.setItem("jwt", data.token);
+        window.location.href = "/home"; // Redirect after sign up
+      } else {
+        alert("Sign up failed: " + data.message);
+      }
+    })
+    .catch(err => {
+      console.error("Signup error:", err);
+      alert("Something went wrong during signup");
+    });
+  }
+    
   </script>
+
+  
+
+    
 </body>
+
 </html>
