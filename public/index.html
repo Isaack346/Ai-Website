@@ -4,11 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Toolbox</title>
+    <!-- Tailwind CSS for utility-first styling -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!--  GSAP & ScrollTrigger for animations -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="logo.png" />
+ <!-- ✅ Google One Tap Sign-In -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -24,7 +28,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #ffffff;
+      background: #3670cf;
       color: black;
       padding: 12px 18px;
       border: none;
@@ -51,13 +55,13 @@
     }
 
     .chat-header {
-      background: #333333;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-    }
+  background: #333;
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
     .chat-body {
       flex: 1;
@@ -68,6 +72,27 @@
       gap: 10px;
       color: white;
     }
+    .suggested-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.suggested-prompts button {
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.suggested-prompts button:hover {
+  background: #666;
+}
 
     .chat-footer {
       display: flex;
@@ -94,6 +119,12 @@
       border-radius: 20px;
       margin-left: 10px;
     }
+    .chat-logo {
+  width: 32px;   /* or try 40px */
+  height: 32px;  /* keep it square */
+  object-fit: contain;
+}
+
 
     .message {
       padding: 10px 15px;
@@ -167,69 +198,142 @@
       <a href="newsfeed.html" class="hover:underline">Newsfeed</a>
       <a href="productivity.html" class="hover:underline">Productivity AI</a>
       <a href="getting-started.html" class="hover:underline">Getting Started</a>
+      <a href="history.html" class="hover:underline">Chatbot History</a>
+
     </nav>
     <div class="space-x-4">
-      <button class="px-4 py-1 border border-white rounded-full text-sm hover:bg-white hover:text-black transition">Login</button>
-      <button class="px-4 py-1 bg-white text-black rounded-full text-sm hover:bg-gray-200">Sign Up</button>
-    </div>
+        <!-- Google Sign-In -->
+        <div class="flex items-center gap-4">
+            <div id="g_id_onload"
+                 data-client_id="569710731999-lu1f5ml52jlaap4bgf2cu6cnd4bnu1bb.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-size="medium"
+                 data-theme="outline"
+                 data-text="sign_in_with"
+                 data-shape="pill"
+                 data-logo_alignment="left">
+            </div>
+        <!-- Keep Sign Up button (optional) -->
+        <button class="px-4 py-1 bg-white text-black rounded-full text-sm hover:bg-gray-200">Sign Up</button>
+      </div>
+      
   </header>
 
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-40" id="hero">
-    <h1 class="text-6xl font-bold mb-6 opacity-0">Ai Influencers</h1>
-    <p class="text-xl text-gray-300 mb-10 opacity-0">Click below to begin the journey.</p>
-    <button onclick="document.getElementById('auth').scrollIntoView({ behavior: 'smooth' })" class="px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition font-medium opacity-0">Get Started</button>
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-40" id="hero">
+  <h1 class="text-6xl font-bold mb-6 opacity-0">Ai Influencers</h1>
+  <p class="text-xl text-gray-300 mb-10 opacity-0">Click below to begin the journey.</p>
+  <button onclick="window.location.href='personalize.html'" class="px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition font-medium opacity-0">
+    Get Started
+  </button>
   </section>
 
-  <!-- Login / Signup Section -->
-  <section class="flex flex-col md:flex-row justify-center items-start gap-16 px-6 opacity-0" id="auth">
-    <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
-      <h2 class="text-xl font-semibold mb-4">Login</h2>
-      <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
-      <input type="password" placeholder="Password" class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white"/>
-      <button class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">Login</button>
-    </div>
-    <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
-      <h2 class="text-xl font-semibold mb-4">Sign Up</h2>
-      <input type="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white"/>
-      <input type="password" placeholder="Password" class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white"/>
-      <button class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">Sign Up</button>
-    </div>
-  </section>
+ <!-- Login / Signup Section -->
+ <section class="w-full flex justify-center items-center gap-12 py-20">
+  <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
+    <h2 class="text-xl font-semibold mb-4">Login</h2>
+    <input id="loginEmail" type="email" placeholder="Email"
+           class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white" />
+    <input id="loginPassword" type="password" placeholder="Password"
+           class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white" />
+    <button onclick="handleLogin()" class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">
+      Login
+    </button>
+  </div>
 
-  <!-- Feature Cards -->
-  <section class="px-6 pt-24 opacity-0" id="features">
-    <h2 class="text-4xl font-bold text-center mb-12">What You Can Do</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-      <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
-        <h3 class="text-xl font-semibold mb-2">AI Chatbot</h3>
-        <p class="text-gray-400">Interact with an intelligent assistant in real-time, built to answer and assist.</p>
-      </div>
-      <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
-        <h3 class="text-xl font-semibold mb-2">Text Summarizer</h3>
-        <p class="text-gray-400">Paste long articles and get concise summaries with a click.</p>
-      </div>
-      <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
-        <h3 class="text-xl font-semibold mb-2">Code Generator</h3>
-        <p class="text-gray-400">Write less, do more — generate code snippets in Python, JS, and more.</p>
-      </div>
+  <div class="bg-neutral-900 border border-gray-700 p-8 rounded-xl w-full max-w-xs">
+    <h2 class="text-xl font-semibold mb-4">Sign Up</h2>
+    <input id="signupEmail" type="email" placeholder="Email"
+           class="w-full bg-black border border-gray-700 p-3 mb-4 rounded placeholder-gray-500 text-white" />
+    <input id="signupPassword" type="password" placeholder="Password"
+           class="w-full bg-black border border-gray-700 p-3 mb-6 rounded placeholder-gray-500 text-white" />
+    <button onclick="handleSignup()" class="w-full bg-white text-black py-2 rounded hover:bg-gray-200">
+      Sign Up
+    </button>
+  </div>
+</section>
+
+ <!-- Feature Cards -->
+ <section class="px-6 pt-24 opacity-0" id="features">
+  <h2 class="text-4xl font-bold text-center mb-12">What You Can Do</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
+      <h3 class="text-xl font-semibold mb-2">AI Chatbot</h3>
+      <p class="text-gray-400">Interact with an intelligent assistant in real-time, built to answer and assist.</p>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="mt-32 p-6 text-center text-gray-500 text-sm border-t border-gray-800">
-    © 2025 AI Toolbox. All rights reserved.
-  </footer>
-
-  <!-- Chatbot -->
-  <div class="chat-container" id="chatbot">
-    <div class="chat-header">AI Assistant</div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-footer">
-      <input type="text" id="userInput" placeholder="Type a message...">
-      <button onclick="sendMessage()">Send</button>
+    <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
+      <h3 class="text-xl font-semibold mb-2">Text Summarizer</h3>
+      <p class="text-gray-400">Paste long articles and get concise summaries with a click.</p>
+    </div>
+    <div class="bg-neutral-900 border border-gray-700 p-6 rounded-xl hover:scale-105 transition">
+      <h3 class="text-xl font-semibold mb-2">Code Generator</h3>
+      <p class="text-gray-400">Write less, do more — generate code snippets in Python, JS, and more.</p>
     </div>
   </div>
+</section>
+
+<!-- Footer -->
+<footer class="mt-32 p-6 text-center text-gray-500 text-sm border-t border-gray-800">
+  © 2025 AI Toolbox. All rights reserved.
+</footer>
+
+   <!-- Chatbot -->
+<!--   Chatbot Button -->
+<button class="chatbot-button" onclick="toggleChatbot()">💬</button>
+
+<!--  New Chatbot Container -->
+<div class="chat-container" id="chatbot">
+  <div class="chat-header">
+    <img src="Ai Influ.png" alt="Chatbot Logo" class="chat-logo">
+    <span class="chat-title">AI Assistant</span>
+    <button class="close-chat" onclick="toggleChatbot()">✖</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="bot-message">Hi! Welcome to AI Assistant. How can I help you today?</div>
+    <div class="suggested-prompts" id="suggestedPrompts">
+      <button onclick="fillPrompt('What’s the weather today?')">🌤️ Weather</button>
+      <button onclick="fillPrompt('Give me the latest Ai news')">📰 Ai News</button>
+      <button onclick="fillPrompt('What is the time right now: ')">⏰ Time</button>
+    </div>
+    
+  
+    <div class="chat-footer">
+      <div class="flex items-center gap-2 w-full">
+        <label for="languageSelect" class="text-white text-sm whitespace-nowrap">Language:</label>
+        
+        <select id="languageSelect" class="bg-black text-white border border-gray-700 rounded px-2 py-1">
+
+        <!-- Give users option on what language they would like chatbot to respond in -->
+          <option value="en">🇺🇸 English</option>  
+          <option value="es">🇪🇸 Spanish</option>
+          <option value="fr">🇫🇷 French</option>
+          <option value="de">🇩🇪 German</option>
+          <option value="zh">🇨🇳 Chinese</option>
+          <option value="ar">🇦🇪 Arabic</option>
+          
+        </select>
+            <!-- This section is part of the  chatbot. The input box is where users type their message, 
+                and it listens for when they press the Enter key to send it.
+                when clicked, it calls a JavaScript function named sendMessage() that grabs the text, 
+                sends it to the chatbot server, and shows the response on the screen.
+                TailwindCss was used to style-->
+
+        <input type="text" id="userInput"
+               placeholder="Type a message..."
+               onkeypress="handleKeyPress(event)"
+               class="flex-1 bg-black text-white border border-gray-700 rounded px-4 py-2"/>
+    
+        <button onclick="sendMessage()" class="bg-white text-black px-4 py-2 rounded">
+          ➤
+        </button>
+      </div>
+    </div>
+
 
   <script>
     // Loader & GSAP
@@ -238,49 +342,322 @@
       const body = document.querySelector('body');
       loader.style.display = 'none';
       body.style.opacity = '1';
+      const browserLang = navigator.language.slice(0, 2); // e.g., 'en', 'fr'
+  const langSelect = document.getElementById("languageSelect");
+  if (langSelect) {
+    const availableLangs = Array.from(langSelect.options).map(opt => opt.value);
+    if (availableLangs.includes(browserLang)) {
+      langSelect.value = browserLang;
+    } else {
+      langSelect.value = 'en'; // fallback
+    }
+    // ✅ Set the <html lang="..."> attribute
+    document.documentElement.lang = langSelect.value;
+  }
 
-      gsap.to('.opacity-0', {
-        opacity: 1,
-        stagger: 0.3,
-        duration: 1,
-        ease: "power2.out"
+  gsap.to('.opacity-0', {
+    opacity: 1,
+    stagger: 0.3,
+    duration: 1,
+    ease: "power2.out"
+  });
+});
+// Function toggleChatbot: controls when the chatbot box appears or hides. When I click the 💬 button, it checks if the chatbot is hidden — 
+    // if it is, it shows it, and if it's already showing, it hides it.
+    function toggleChatbot() { 
+    console.log("Toggle clicked!");
+    let chatbot = document.getElementById("chatbot");
+    chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
+  }
+// this function triggers when a user presses clics arrow. 1) Takes the user’s input.
+// 2) Adds their message to the chat window.
+// 3) Shows a “Thinking…” bubble from the bot while it processes.
+  function sendMessage() {
+  let userInput = document.getElementById("userInput").value;
+  if (userInput.trim() === "") return;
+
+  let chatBody = document.getElementById("chatBody");
+
+  let userMessage = document.createElement("div");
+  userMessage.classList.add("message", "user-message");
+  userMessage.textContent = userInput;
+  chatBody.appendChild(userMessage);
+
+  document.getElementById("userInput").value = "";
+  chatBody.scrollTop = chatBody.scrollHeight;
+
+  let botMessage = document.createElement("div");
+  botMessage.classList.add("message", "bot-message");
+  botMessage.textContent = "Thinking...";
+  chatBody.appendChild(botMessage);
+
+  const lowerInput = userInput.toLowerCase();
+  if (lowerInput.includes("time") || lowerInput.includes("date")) {
+  const now = new Date();
+  const timeString = now.toLocaleTimeString();
+  const dateString = now.toLocaleDateString();
+  const reply = `Today is ${dateString}, and the time is ${timeString}.`;
+
+  botMessage.textContent = reply;
+  chatBody.scrollTop = chatBody.scrollHeight;
+
+  // Save to Database if logged in
+  saveToHistory(userInput, reply);
+  return;
+}
+ // Weather Check
+if (lowerInput.includes("weather")) {
+  const cityMatch = lowerInput.match(/weather in ([a-zA-Z\s]+)/i);
+  const city = cityMatch ? cityMatch[1].trim() : null;
+  const lang = document.getElementById("languageSelect").value;
+
+  if (city) {
+    // ✅ City-based request with translation
+    fetch(`/get-weather?city=${encodeURIComponent(city)}`)
+      .then(res => res.json())
+      .then(async data => {
+        // Send request to the server. Then translate the chatbot reply into the language the user selected.
+        const translation = await fetch(`/chatbot-response?query=${encodeURIComponent(`Translate this to ${lang}: Current weather in ${data.city}: ${data.description}, ${data.temperature}°C`)}&lang=${lang}`);
+        const result = await translation.json();
+        botMessage.textContent = result.response;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      })
+      .catch(err => {
+        botMessage.textContent = `Couldn't fetch weather for ${city}.`;
+        console.error(err);
       });
+
+  } else if (navigator.geolocation) {
+    // ✅ Geolocation-based request with translation
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        fetch(`/get-weather?lat=${lat}&lon=${lon}`)
+          .then(res => res.json())
+          .then(async data => {
+            const translation = await fetch(`/chatbot-response?query=${encodeURIComponent(`Translate this to ${lang}: Current weather in ${data.city}: ${data.description}, ${data.temperature}°C`)}&lang=${lang}`);
+            const result = await translation.json();
+            botMessage.textContent = result.response;
+            chatBody.scrollTop = chatBody.scrollHeight;
+          })
+          .catch(err => {
+            botMessage.textContent = "Couldn't fetch your local weather.";
+            console.error(err);
+          });
+      },
+      (error) => {
+        // ✅ Default fallback weather with translation
+        fetch('/get-weather')
+          .then(res => res.json())
+          .then(async data => {
+            const translation = await fetch(`/chatbot-response?query=${encodeURIComponent(`Translate this to ${lang}: Current weather in ${data.city}: ${data.description}, ${data.temperature}°C`)}&lang=${lang}`);
+            const result = await translation.json();
+            botMessage.textContent = result.response;
+            chatBody.scrollTop = chatBody.scrollHeight;
+          })
+          .catch(err => {
+            botMessage.textContent = "Couldn't fetch fallback weather.";
+            console.error(err);
+          });
+      }
+    );
+  } else {
+    botMessage.textContent = "Geolocation not supported by your browser.";
+  }
+
+  return;
+}
+
+
+  // ✅ Time Check
+  if (lowerInput.includes("time")) {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString();
+    botMessage.textContent = `Current time is ${timeString}`;
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return;
+  }
+
+  // ✅ News Check
+  if (lowerInput.includes("news")) {
+    fetch(`/search-news?query=${encodeURIComponent(userInput)}`)
+      .then(res => res.json())
+      .then(data => {
+        botMessage.remove();
+        if (data.results && data.results.length > 0) {
+          data.results.forEach(article => {
+            const msg = document.createElement("div");
+            msg.className = "message bot-message";
+            msg.innerHTML = `
+              <strong>${article.title}</strong><br>
+              ${article.snippet}<br>
+              <a href="${article.link}" target="_blank">Read more</a>
+            `;
+            chatBody.appendChild(msg);
+          });
+        } else {
+          const errorMsg = document.createElement("div");
+          errorMsg.className = "message bot-message";
+          errorMsg.textContent = "No news found.";
+          chatBody.appendChild(errorMsg);
+        }
+        chatBody.scrollTop = chatBody.scrollHeight;
+      })
+      .catch(error => {
+        botMessage.textContent = "Error fetching news.";
+        console.error(error);
+      });
+    return;
+  }
+
+  //   chatbot fallback
+  // sends selected  language as a query parameter to your backend:
+  const selectedLang = document.getElementById("languageSelect").value;
+  fetch(`/chatbot-response?query=${encodeURIComponent(userInput)}&lang=${selectedLang}`, {
+  headers: {
+    "Authorization": `Bearer ${localStorage.getItem("jwt")}`
+  }
+})
+.then(response => response.json())
+.then(data => {
+  botMessage.textContent = data.response || "Sorry, I didn't get that.";
+  chatBody.scrollTop = chatBody.scrollHeight;
+
+  //  Save to DB
+  saveToHistory(userInput, botMessage.textContent);
+});
+} //  END of sendMessage()
+
+//This function checks if the user presses the Enter key while typing.
+//If they do, it triggers the sendMessage() function so the message gets sent automatically — just like in a real chat. 
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+}
+// This function is used when the user clicks a suggested prompt like “What’s the weather today?”
+// It fills the input box with that prompt and focuses the cursor there so they can quickly send it.
+function fillPrompt(text) {
+  const input = document.getElementById("userInput");
+  input.value = text;
+  input.focus();
+}
+
+
+</script>
+<script>
+  // This function handles the Google One Tap login.
+// When Google gives us a credential (token), we send it to the server at /api/google-login.
+// If login is successful:
+    function handleCredentialResponse(response) {
+      fetch('/api/google-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: response.credential })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          // Save JWT locally
+          localStorage.setItem('jwt', data.token);
+          // Redirect user to a protected page
+          window.location.href = '/home';  // Change this if needed
+        } else {
+          alert('Google sign-in failed');
+        }
+      })
+      .catch(err => {
+        console.error('Google sign-in error:', err);
+        alert('Something went wrong');
+      });
+    }
+    // runs when user attempts to login
+    function handleLogin() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        localStorage.setItem("jwt", data.token);
+        window.location.href = "/home"; // or your dashboard
+      } else {
+        alert("Login failed: " + data.message);
+      }
+    })
+    .catch(err => {
+      console.error("Login error:", err);
+      alert("Something went wrong during login");
     });
+    
+  }
+  // runs when user attemps to sign 
+  function handleSignup() {
+    const email = document.getElementById("signupEmail").value;
+    const password = document.getElementById("signupPassword").value;
+// uses fetch Api 
+    fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        localStorage.setItem("jwt", data.token);  // optional
+        window.location.href = "/home"; //  redirect
+      } else {
+        alert("Signup failed: " + data.message);
+      }
+    })
+    .catch(err => {
+      console.error("Signup error:", err);
+      alert("Something went wrong during signup");
+    });
+  }
+</script>
+<script>
+  //  created a function to save user history
+  function saveToHistory(prompt, response) {
+    const token = localStorage.getItem("jwt");
+    if (!token) return;
 
-    function toggleChatbot() {
-      const chatbot = document.getElementById("chatbot");
-      chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
-    }
+    console.log("🧠 Saving to history:", prompt, response); // saving history
+// using javascript and fetch api
+    fetch("/api/save-history", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Tells the server you're sending JSON data
+        "Authorization": `Bearer ${token}` // Sends a JWT for authentication 
+      },
+      body: JSON.stringify({ prompt, response })  // Sends the actual prompt and response data
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        console.warn("Failed to save history:", data.message); // used a if statement to notify if save history is struggling
+      }
+    })
+    .catch(err => {
+      console.error("Error saving history:", err);// used a catch  statement to notify if save history is struggling
+    });
+  }
+</script>
+<script>
+  
+</script>
+</body>
+</html>
 
-    function sendMessage() {
-      const userInput = document.getElementById("userInput").value;
-      if (userInput.trim() === "") return;
 
-      const chatBody = document.getElementById("chatBody");
-      const userMessage = `<div class='message user-message'>${userInput}</div>`;
-      chatBody.innerHTML += userMessage;
-      document.getElementById("userInput").value = "";
-      chatBody.scrollTop = chatBody.scrollHeight;
 
-      const loadingBubble = `<div id='loading' class='loading-bubble'>Thinking...</div>`;
-      chatBody.innerHTML += loadingBubble;
-      chatBody.scrollTop = chatBody.scrollHeight;
 
-      fetch(`http://127.0.0.1:5000/chatbot-response?query=${encodeURIComponent(userInput)}`)
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById("loading").remove();
-          const botDiv = document.createElement("div");
-          botDiv.className = "message bot-message";
-          botDiv.innerHTML = data.response || "Sorry, I couldn't understand that.";
-          chatBody.appendChild(botDiv);
-          chatBody.scrollTop = chatBody.scrollHeight;
-        })
-        .catch(error => {
-          document.getElementById("loading").remove();
-          chatBody.innerHTML += `<div class='message bot-message'>Error processing your request.</div>`;
-        });
-    }
-  </script>
 </body>
 </html>

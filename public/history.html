@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat History</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen font-sans">
+
+  <header class="bg-gray-900 p-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">AI Toolbox</h1>
+    <nav class="space-x-6 text-sm uppercase tracking-wide">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="newsfeed.html" class="hover:underline">Newsfeed</a>
+      <a href="productivity.html" class="hover:underline">Productivity AI</a>
+      <a href="getting-started.html" class="hover:underline">Getting Started</a>
+      <a href="history.html" class="underline text-blue-400">History</a>
+    </nav>
+  </header>
+
+  <main class="p-6 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold mb-6">Your Chat History</h2>
+    <ul id="historyList" class="space-y-4"></ul>
+  </main>
+
+  <script>
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+      alert('You must be logged in to view your history.');
+      window.location.href = '/';
+    }
+  // Sends the token to the /api/history route on the backend.
+  // Sends the token to the /api/history route on the backend.
+
+    fetch('/api/history', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+    .then(res => res.json())
+    //Reverses the prompts so the latest appears first.
+    // Creates a li(list item) for each entry, showing the date, user question, and AI answer.
+    //If no history exists, it tells the user.
+    .then(data => {
+      const historyList = document.getElementById('historyList');
+      if (data.prompts && data.prompts.length > 0) {
+        data.prompts.reverse().forEach(item => {
+          const li = document.createElement('li');
+          li.className = "bg-gray-800 p-4 rounded-lg";
+          li.innerHTML = `
+            <p class="text-sm text-gray-400 mb-2">${new Date(item.timestamp).toLocaleString()}</p>
+            <p><strong class="text-blue-300">You:</strong> ${item.question}</p>
+            <p class="mt-2"><strong class="text-green-300">AI:</strong> ${item.answer}</p>
+          `;
+          historyList.appendChild(li);
+        });
+      } else {
+        historyList.innerHTML = `<p class="text-gray-400">No prompts found yet.</p>`;
+      }
+    })
+    .catch(err => {
+      console.error('History fetch failed:', err);
+      document.getElementById('historyList').innerHTML = `<p class="text-red-500">Failed to load history.</p>`;
+    });
+  // This function allows saving a new chatbot prompt/response to the backend (used on the chatbot page, but still useful here).
+  //Uses fetch with a POST request and sends the token and prompt/response.
+    function saveToHistory(prompt, response) {
+      const token = localStorage.getItem("jwt");
+      if (!token) return;
+  
+      fetch("/api/save-history", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ prompt, response })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) {
+          console.warn("Failed to save history:", data.message);
+        }
+      })
+      .catch(err => {
+        console.error("Error saving history:", err);
+      });
+    }
+  </script>
+
+</body>
+</html>

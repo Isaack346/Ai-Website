@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Personalize Your AI  Experience </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      /*- Used  TailwindCSS for  styling. */
+
+    /* ✅ Chat message scroll control */
+    
+    .bot-message,
+    .user-message {
+      max-height: 150px;
+      overflow-y: auto;
+      padding-right: 6px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  
+    .chat-body {
+      overflow-y: auto;
+      scrollbar-width: thin; /* Firefox */
+    }
+  
+    .chat-body::-webkit-scrollbar {
+      width: 6px;
+    }
+  
+    .chat-body::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+  
+    .chat-body::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+      /*- Used href/index.html to send users to the homepage if they would like to go to the homepage */
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center px-6">
+  <div class="absolute top-6 right-6">
+    <a href="/index.html" class="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition">
+      🏠 Home
+    </a>
+  </div>
+
+  <div class="max-w-xl text-center">
+    <h1 class="text-3xl font-bold mb-6">Let’s Personalize Your Ai Experience</h1>
+    <p class="text-gray-400 mb-8">Answer a few quick questions to tailor your experience.</p>
+    <div id="questionArea" class="space-y-6"></div>
+  </div>
+
+  <script>
+      /*- Asked Personalized Questions */
+    const questions = [
+      "What field are you most interested in? (Productivity, Writing, Coding, Research, Sports)",
+      "How much do you know about AI?",
+      "What’s one problem you’d love AI to solve for you?"
+    ];
+
+    let currentQuestion = 0;
+    const answers = [];
+      /*-updates the screen with a new question. */
+
+    function askNextQuestion() {
+      const area = document.getElementById("questionArea");
+      area.innerHTML = `
+        <p class="text-xl">${questions[currentQuestion]}</p>
+        <input type="text" id="userAnswer" class="w-full bg-gray-800 border border-gray-600 p-3 rounded text-white" />
+        <button onclick="submitAnswer()" class="mt-4 px-6 py-2 bg-white text-black rounded hover:bg-gray-200">Next</button>
+      `;
+    }
+    /*-saves each answer and moves to the next question. */
+
+    function submitAnswer() {
+      const input = document.getElementById("userAnswer").value.trim();
+      if (!input) return;
+      answers.push(input);
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        askNextQuestion();
+      } else {
+        showSuggestions();
+      }
+    }
+    /*- displays a customized message and a link to open the chatbot */
+
+    function showSuggestions() {
+      const area = document.getElementById("questionArea");
+      const [interest, frequency, problem] = answers;
+
+      area.innerHTML = `
+        <h3 class="text-2xl font-bold mb-4">Based on your answers:</h3>
+        <ul class="text-left space-y-3">
+          <li>✅ Here's a tools related to <strong>${interest}</strong>.</li>
+          <a href="https://www.rithmm.com/" target="_blank" class="text-blue-400 underline text-sm">
+         Check out Rithmm – a great tool for sports analysis that can help you make money💰
+      </a>
+          <li>✅ Since you use AI ${frequency}, we’ll recommend lightweight or powerful options accordingly.</li>
+          <a href="https://www.synthesia.io/post/ai-tools" target="_blank" class="text-blue-400 underline text-sm">
+         Here is the link to the 50 best Ai tools that you can use. 
+      </a>
+          <li>✅ Let’s try solving: <em>“${problem}”</em> using your AI toolbox.</li>
+        </ul>
+        <p class="mt-6">🎯 Ready to explore? <a href="#" class="text-blue-400 underline" onclick="toggleChatbot()">Start chatting</a></p>
+      `;
+    }
+
+    window.onload = askNextQuestion;
+  </script>
+
+  <!-- ✅ Chatbot Interface -->
+  <div class="chat-container hidden fixed bottom-24 right-6 bg-white rounded-lg shadow-lg w-full max-w-md p-4 flex flex-col" id="chatbot">
+    <div class="chat-header flex justify-between items-center mb-2">
+      <div class="flex items-center gap-2">
+        <img src="Ai Influ.png" alt="Chatbot Logo" class="w-6 h-6" />
+        <span class="font-semibold text-black">AI Assistant</span>
+      </div>
+      <button onclick="toggleChatbot()" class="text-black">✖</button>
+    </div>
+    <div class="chat-body overflow-y-auto flex-1 text-black space-y-2 mb-3" id="chatBody">
+      <div class="bot-message bg-gray-200 p-2 rounded">Hi! How can I help you today?</div>
+      <div class="suggested-prompts flex gap-2 flex-wrap">
+        <button onclick="fillPrompt('What’s the weather today?')" class="bg-gray-300 px-3 py-1 rounded text-sm">🌤️ Weather</button>
+        <button onclick="fillPrompt('Give me the latest AI news')" class="bg-gray-300 px-3 py-1 rounded text-sm">📰 News</button>
+        <button onclick="fillPrompt('What is the time right now?')" class="bg-gray-300 px-3 py-1 rounded text-sm">⏰ Time</button>
+      </div>
+    </div>
+     <!-- This allows user to select a language they would like chatbot to respond in-->
+    <div class="chat-footer flex gap-2">
+      <select id="languageSelect" class="bg-black text-white border border-gray-700 rounded px-2">
+        <option value="en">🇺🇸</option>
+        <option value="es">🇪🇸</option>
+        <option value="fr">🇫🇷</option>
+        <option value="de">🇩🇪</option>
+        <option value="zh">🇨🇳</option>
+        <option value="ar">🇦🇪</option>
+      </select>
+      <input type="text" id="userInput" placeholder="Type a message..." class="flex-1 border px-3 py-1 rounded text-black" onkeypress="handleKeyPress(event)" />
+      <button onclick="sendMessage()" class="bg-blue-500 text-white px-3 py-1 rounded">➤</button>
+    </div>
+  </div>
+  
+
+   <!--  Floating Chatbot Button -->
+   <button onclick="toggleChatbot()" class="fixed bottom-6 right-6 bg-blue-500 text-white p-3 rounded-full shadow-lg">💬</button>
+
+   <!-- ✅ Script -->
+   <script>
+     function toggleChatbot() {
+       const chatbot = document.getElementById("chatbot");
+       chatbot.classList.toggle("hidden");
+     }
+     /*- when user types a prompt. Message
+     appears on creen and thinking for agtering informattion.Also a request is being sent
+     to backend  */
+
+     function sendMessage() {
+       const input = document.getElementById("userInput");
+       const text = input.value.trim();
+       if (!text) return;
+ 
+       const chatBody = document.getElementById("chatBody");
+       const userMsg = document.createElement("div");
+       userMsg.className = "user-message bg-blue-500 text-white p-2 rounded self-end";
+       userMsg.textContent = text;
+       chatBody.appendChild(userMsg);
+ 
+       const botMsg = document.createElement("div");
+       botMsg.className = "bot-message bg-gray-200 text-black p-2 rounded self-start";
+       botMsg.textContent = "Thinking...";
+       chatBody.appendChild(botMsg);
+ 
+       input.value = "";
+       chatBody.scrollTop = chatBody.scrollHeight;
+ 
+       const lang = document.getElementById("languageSelect").value;
+ 
+       fetch(`/chatbot-response?query=${encodeURIComponent(text)}&lang=${lang}`)
+         .then(res => res.json())
+         .then(data => {
+           botMsg.textContent = data.response || "Sorry, I couldn't understand that.";
+           chatBody.scrollTop = chatBody.scrollHeight;
+         })
+         .catch(() => {
+           botMsg.textContent = "Something went wrong.";
+         });
+     }
+ 
+     function handleKeyPress(event) {
+       if (event.key === "Enter") {
+         sendMessage();
+       }
+     }
+ 
+     function fillPrompt(text) {
+       const input = document.getElementById("userInput");
+       input.value = text;
+       input.focus();
+     }
+   </script>
+ </body>
+ </html>

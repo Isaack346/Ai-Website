@@ -1,44 +1,61 @@
+//requirements ti interact with mongo db
+//bycrypt has passqwords for safety
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs'); // Import bcryptjs for password hashing
+const bcrypt = require('bcryptjs');
 
-// Define the user schema
+// Define the schema
+// GoogleId: for google sign-ins
+// name: allows users to tyoe name in string format
+// email requied and has to be unique
+// password is optional
+// Overall are schema defines the structure and rules for each user stored in your MongoDB database.
 const userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true, // Ensures no duplicate emails are allowed
-    },
-    password: {
-        type: String,
-        required: true, // Password is mandatory
+  googleId: {
+    type: String,
+    required: false,
+  },
+  name: {
+    type: String,
+    required: false,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: false,
+  },
+  prompts: [  // this is how where we  store a user’s chatbot history — every question, its answer, and the time it happened.
+    {
+      question: String,
+      answer: String,
+      timestamp: { type: Date, default: Date.now }
     }
+  ]
 });
 
-// Pre-save hook to hash the password before saving it to the database
-userSchema.pre('save', async function(next) {
-    // If the password is not modified, skip the hashing
-    if (!this.isModified('password')) return next();
+// Pre-save hook to hash passwords
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password') || !this.password) return next();
 
-    try {
-        // Generate a salt with 10 rounds
-        const salt = await bcrypt.genSalt(10);
-        // Hash the password using the generated salt
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (err) {
-        next(err);
-    }
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
-// Method to compare entered password with the hashed password
-userSchema.methods.comparePassword = async function(candidatePassword) {
-    try {
-        // Compare the entered password with the stored hashed password
-        return await bcrypt.compare(candidatePassword, this.password);
-    } catch (err) {
-        throw new Error('Password comparison failed');
-    }
+// Password comparison method
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  try {
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (err) {
+    throw new Error('Password comparison failed');
+  }
 };
-
-// Create a model based on the schema and export it
+// exports the model so we can use it in other files such as  server.js.
 module.exports = mongoose.model('User', userSchema);
